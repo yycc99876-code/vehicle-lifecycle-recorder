@@ -49,7 +49,7 @@ contract CarHistory {
     }
 
     // --- 核心功能 1: 授权新的 4S 店/维修站 ---
-    // 只有管理员能调用。在现实中，这意味着车企给某个4S店开通权限。
+    // 只有管理员能调用。在现实中，就需要车企给某个4S店开通权限。
     function authorizeRecorder(address _recorder) external onlyAdmin {
         authorizedRecorders[_recorder] = true;
         emit RecorderAuthorized(_recorder);
@@ -64,6 +64,7 @@ contract CarHistory {
 
     // --- 核心功能 3: 上传维修记录 ---
     // 只有被授权的地址才能调用
+    // (我选择在这里用calldate省费，英文这些字符串不需要在函数里修改)
     function addRecord(
         string calldata _vin, 
         uint256 _mileage, 
